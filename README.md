@@ -23,6 +23,7 @@ Recurring subscription debits and UPI mandates often fail due to transient netwo
 
 ## Architecture
 
+```text
 Webhook / Batch Failure Stream
              │
              ▼
@@ -38,8 +39,13 @@ Webhook / Batch Failure Stream
                                                 │
                                                 ▼
                                     [ Immutable Audit Trail ]
+```
 
-Project Structure
+---
+
+## Project Structure
+
+```text
 resolvepay/
 ├── app/
 │   ├── __init__.py
@@ -56,34 +62,55 @@ resolvepay/
 │   └── test_recovery.py    # Unit tests for policies, idempotency, and mocks
 ├── requirements.txt
 └── README.md
+```
 
-Quickstart
-1. Clone & Set Up Environment
-git clone [https://github.com/](https://github.com/)<your-username>/resolvepay.git
+---
+
+## Quickstart
+
+### 1. Clone & Set Up Environment
+```bash
+git clone https://github.com/rohandhar6824-debug/resolvepay.git
 cd resolvepay
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
+```
+* On Windows: `venv\Scripts\activate`
+* On Linux/macOS: `source venv/bin/activate`
 
-2. Configure Environment Variables
-Create a .env file in the root directory:
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Configure Environment Variables
+Create a `.env` file in the root directory:
+```env
 RAZORPAY_KEY_ID=rzp_test_placeholder
 RAZORPAY_KEY_SECRET=rzp_secret_placeholder
 GEMINI_API_KEY=your_gemini_api_key_here
+```
 
-3. Generate Synthetic Failure Batch
+### 3. Generate Synthetic Failure Batch
+```bash
 python -m app.simulator
+```
 
-4. Run Test Suite
+### 4. Run Test Suite
+```bash
 python -m pytest tests/test_recovery.py
+```
 
-5. Launch the Control Plane Dashboard
+### 5. Launch the Control Plane Dashboard
+```bash
 uvicorn app.main:app --reload --port 8000
+```
+Open `http://localhost:8000` in your browser and click **"Run Batch Simulation"** to trigger batch ingestion and view the live audit table.
 
-Open http://localhost:8000 in your browser and click "Run Batch Simulation" to trigger batch ingestion and view the live audit table.
-Evaluated Batch Metrics (60 Synthetic Transactions)
- * Total Ingested: 60 transactions
- * Total Revenue at Risk: ₹143,940.00
- * Total Revenue Recovered: ₹111,858.00 (~77.7% recovery rate)
- * Policy Stops (Compliance / Harassment Prevention): 6 transactions halted
- * Replay / Idempotency Errors Suppressed: 100%
+---
+
+## Evaluated Batch Metrics (60 Synthetic Transactions)
+
+* **Total Ingested:** 60 transactions
+* **Total Revenue at Risk:** ₹143,940.00
+* **Total Revenue Recovered:** ₹111,858.00 (~77.7% recovery rate)
+* **Policy Stops (Compliance / Harassment Prevention):** 6 transactions halted
+* **Replay / Idempotency Errors Suppressed:** 100%
