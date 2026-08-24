@@ -107,10 +107,10 @@ Open `http://localhost:8000` in your browser and click **"Run Batch Simulation"*
 
 ---
 
-## Evaluated Batch Metrics (60 Synthetic Transactions)
+## Benchmark Sample Run Metrics (60-Transaction Evaluation Batch)
 
 * **Total Ingested:** 60 transactions
 * **Total Revenue at Risk:** ₹143,940.00
-* **Total Revenue Recovered:** ₹111,858.00 (~77.7% recovery rate)
+* **Average Revenue Recovered:** ~₹110,000.00 (~75–80% recovery rate)
 * **Policy Stops (Compliance / Harassment Prevention):** 6 transactions halted
 * **Replay / Idempotency Errors Suppressed:** 100%
